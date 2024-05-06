@@ -1,0 +1,48 @@
+
+#user>img{
+    width: 50px;
+    border-radius: 50%;
+}
+
+#catchphrase{
+    text-align: center;
+}
+
+#catchphrase>*{
+    animation: fade-in 4s ease-out;
+}
+
+#nuove-uscite{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#nuove-uscite>h1{
+    display: block;
+}
+
+.album{
+    width: 33%;
+}
+
+.album>img{
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+.album>h3{
+    text-align: center;
+}
+
+
+@keyframes fade-in{
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
