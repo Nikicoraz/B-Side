@@ -1,5 +1,13 @@
 <?php
+    /**
+     * Generates a new Spotify API token and stores it in the database
+     * @return string The new Spotify API token
+     */
     function grab_new_token(){
+        /**
+         * Replaces the existing token in the database with the new one
+         * @param string $new_token The new token to be stored in the database
+         */
         function replace_existing_token($new_token){
             include "php_scripts/connect_db.php";
 
@@ -15,7 +23,7 @@
         }
 
         $env = parse_ini_file(".env");
-    
+
         $curl = curl_init("https://accounts.spotify.com/api/token");
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -27,15 +35,28 @@
         return $result["access_token"];
     }
 
+
+    /**
+     * Gets the Spotify API token from the database if it exists, otherwise it
+     * generates a new one and stores it in the database
+     * @return string The Spotify API token
+     */
     function get_token(){
         include "php_scripts/connect_db.php";
 
         $conn = connect();
         $token = null;
+
+        // Query the database for the token
         $q = $conn->query("SELECT token FROM Token");
+
+        // If the token exists in the database
         if($q->num_rows == 1){
+            // Get the token from the database and return it
             $token = $q->fetch_assoc()["token"];
         }else{
+            // If the token does not exist in the database, generate a new one
+            // and store it in the database
             $token = grab_new_token();
         }
 
