@@ -12,8 +12,6 @@
 
     // Codice per ottenere il token 
     $token = get_token();
-
-    var_dump(search_album($token, "Monkey Business")['albums']['items'][0]['external_urls']['spotify']);
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +26,7 @@
         <h1>B-SIDE</h1>
         <div id="search-div">
             <input type="text" placeholder="Cerca..." name="ricerca" id="ricerca">
+            <div id="results"></div>
         </div>
         <div>
             <div id="user">
@@ -71,5 +70,36 @@
             <h3>Padre e Figlio</h3>
         </div>
     </div>
+    <script>
+        const ricerca = document.getElementById("ricerca");
+
+        let ricerca_id = -1;
+        ricerca.addEventListener("input", (e) => {
+            if(ricerca_id != -1){
+                clearTimeout(ricerca_id);
+            }
+
+            console.log("Change");
+            let data = new FormData();
+            data.append("album_name", ricerca.value);
+
+            ricerca_id = setTimeout(() => {
+                fetch("./php_scripts/search_album.php", {
+                    method: "POST",
+                    body: data,
+                    }).then((res) => 
+                        res.text()
+                    ).then(data => {
+                        if(data.error){
+                            if(data.error.status == 401){
+                                console.log("hihihiha");
+                            }
+                        }else{
+                            document.getElementById("results").innerHTML = data;
+                        }
+                    })
+            }, 500);
+        });
+    </script>
 </body>
 </html>

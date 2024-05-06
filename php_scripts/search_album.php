@@ -36,4 +36,30 @@
         return json_decode($ret, true);
     }
 
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+        include dirname(__FILE__) . "/grab_token.php";
+
+        $token = get_token();
+        $album_name = $_POST["album_name"];
+        $album = search_album($token, $album_name);
+
+        if(isset($album['error'])){
+            if($album['error']['status'] == 401){
+                $token = grab_new_token();
+                $album = search_album($token, $album_name);
+                var_dump($album);
+            }
+        }
+
+        foreach($album['albums']['items'] as $a){
+            ?>
+                <div class="result-item">
+                    <img src="<?php echo $a['images'][0]['url']; ?>" alt="">
+                    <p><?php echo $a['name']; ?></p>
+                </div>
+            <?php
+        }
+    }
+
 ?>
