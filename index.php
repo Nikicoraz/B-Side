@@ -7,20 +7,13 @@
     // ------------------
 
 
-    include "php_scripts/connect_db.php";
     include "php_scripts/grab_token.php";
-    
-    $conn = connect();
-    
+    include "php_scripts/search_album.php";
+
     // Codice per ottenere il token 
-    $token = null;
-    $q = $conn->query("SELECT token FROM Token");
-    if($q->num_rows == 1){
-        $token = $q->fetch_assoc()["token"];
-    }else{
-        $token = grabNewToken();
-        $conn->query("INSERT INTO Token(token) VALUES('$token')");
-    }
+    $token = get_token();
+
+    var_dump(search_album($token, "Monkey Business")['albums']['items'][0]['external_urls']['spotify']);
 ?>
 
 <!DOCTYPE html>
