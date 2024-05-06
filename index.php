@@ -1,3 +1,28 @@
+<?php
+    // ------------------
+    // Per ottenere il token serve creare un file .env con le seguenti informazioni:
+    // CLIENT_ID = <id>
+    // CLIENT_SECRET = <secret>
+    // Queste informazioni vengono fornite dall'applicazione su spotify for developers
+    // ------------------
+
+
+    include "php_scripts/connect_db.php";
+    include "php_scripts/grab_token.php";
+    
+    $conn = connect();
+    
+    // Codice per ottenere il token 
+    $token = null;
+    $q = $conn->query("SELECT token FROM Token");
+    if($q->num_rows == 1){
+        $token = $q->fetch_assoc()["token"];
+    }else{
+        $token = grabNewToken();
+        $conn->query("INSERT INTO Token(token) VALUES('$token')");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
