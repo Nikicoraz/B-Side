@@ -57,7 +57,7 @@
                 ?>
                     <div class="result-item">
                         <img src="<?php echo $a['images'][0]['url']; ?>" alt="">
-                        <p><?php echo $a['name']; ?></p>
+                        <p><a href="album.php?album_id=<?php echo $a['id']; ?>"><?php echo $a['name']; ?></a></p>
                     </div>
                 <?php
             }
