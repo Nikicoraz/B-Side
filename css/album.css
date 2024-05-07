@@ -1,0 +1,13 @@
+.main-content{
+    padding: 10px 0;
+    display: flex;
+    gap: 5vw;
+}
+
+.cover{
+    height: 300px;
+}
+
+.reviews textarea, .reviews button{
+    color: black;
+}
