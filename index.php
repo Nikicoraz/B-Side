@@ -20,6 +20,7 @@
     <title>B Side</title>
     <link rel="stylesheet" href="css/comune.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/results.css">
 </head>
 <body>
     <nav>

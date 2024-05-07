@@ -1,0 +1,14 @@
+#results{
+    background-color: var(--darker);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.result-item{
+    display: flex;
+}
+
+.result-item>img{
+    height: 100px;
+}

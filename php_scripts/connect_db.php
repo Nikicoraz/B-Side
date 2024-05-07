@@ -6,7 +6,8 @@
      */
     function connect(){
         // Connect to the database
-        $conn = new mysqli("127.0.0.1", "root", "changeme", "bside");
+        $env = parse_ini_file(dirname(__FILE__) . "/../.env");
+        $conn = new mysqli($env['DB_URL'], $env["DB_USER"], $env["DB_PASS"], "bside");
         // If connection fails, stop the script
         if($conn->connect_error){
             die("Connection failed: " . $conn->connect_error);

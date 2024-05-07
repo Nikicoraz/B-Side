@@ -36,10 +36,6 @@
     text-align: center;
 }
 
-.result-item>img{
-    height: 100px;
-}
-
 @keyframes fade-in{
     0%{
         opacity: 0;
