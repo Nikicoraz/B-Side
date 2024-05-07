@@ -10,6 +10,7 @@
 
 #catchphrase>*{
     animation: fade-in 4s ease-out;
+    z-index: 1;
 }
 
 #nuove-uscite{

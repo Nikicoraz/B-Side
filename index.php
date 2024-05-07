@@ -96,7 +96,12 @@
                                 console.log("hihihiha");
                             }
                         }else{
-                            document.getElementById("results").innerHTML = data;
+                            if(data && data != ""){
+                                document.getElementById("results").style.display = "block";
+                                document.getElementById("results").innerHTML = data;
+                            }else{
+                                document.getElementById("results").style.display = "none";
+                            }
                         }
                     })
             }, 500);

@@ -52,13 +52,15 @@
             }
         }
 
-        foreach($album['albums']['items'] as $a){
-            ?>
-                <div class="result-item">
-                    <img src="<?php echo $a['images'][0]['url']; ?>" alt="">
-                    <p><?php echo $a['name']; ?></p>
-                </div>
-            <?php
+        if($album['albums']['items']){
+            foreach($album['albums']['items'] as $a){
+                ?>
+                    <div class="result-item">
+                        <img src="<?php echo $a['images'][0]['url']; ?>" alt="">
+                        <p><?php echo $a['name']; ?></p>
+                    </div>
+                <?php
+            }
         }
     }
 
