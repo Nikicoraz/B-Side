@@ -31,6 +31,11 @@ nav{
 nav>h1{
     margin: auto 0;
     font-size: 2rem;
+    text-decoration: none;
+}
+
+nav a{
+    text-decoration: none;
 }
 
 #ricerca{
@@ -58,4 +63,9 @@ nav>h1{
     margin: 10px 0;
     padding: 30px;
     background-color: var(--dark-darker);
+}
+
+#user>img{
+    width: 50px;
+    border-radius: 50%;
 }
