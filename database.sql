@@ -2,7 +2,7 @@
 --
 -- Host: 127.0.0.1    Database: bside
 -- ------------------------------------------------------
--- Server version	11.3.2-MariaDB
+-- Server version	11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,23 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `Reviews`
+--
+
+DROP TABLE IF EXISTS `Reviews`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `Reviews` (
+  `user_id` int(11) NOT NULL,
+  `album_id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `corpus` text NOT NULL,
+  PRIMARY KEY (`user_id`,`album_id`),
+  CONSTRAINT `Reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `Token`
 --
 
@@ -25,19 +42,24 @@ DROP TABLE IF EXISTS `Token`;
 CREATE TABLE `Token` (
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Token`
+-- Table structure for table `User`
 --
 
-LOCK TABLES `Token` WRITE;
-/*!40000 ALTER TABLE `Token` DISABLE KEYS */;
-INSERT INTO `Token` VALUES
-('BQDiXLIKsRzZpifIpKngQaSOglKZeABtqXDveeNjEDTY4IhFLTp20DkzaFOuKsiWWWH8hhPQt0HW6QN5VeEUCANppek4bbPIQYR2-LKzQwPDR4YuUyk');
-/*!40000 ALTER TABLE `Token` ENABLE KEYS */;
-UNLOCK TABLES;
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` char(255) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `bio` tinytext DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +70,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-07 10:24:36
+-- Dump completed on 2024-05-15 19:23:29
