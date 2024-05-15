@@ -36,6 +36,13 @@
         return json_decode($ret, true);
     }
 
+    /**
+     * Search for an album on Spotify by its ID.
+     *
+     * @param string $token The Spotify API token.
+     * @param string $album_id The ID of the album to search for.
+     * @return array An array of information about the album, or null if there was an error.
+     */
     function search_album_by_id($token, $album_id){
         $curl = curl_init("https://api.spotify.com/v1/albums/" . $album_id);
 
