@@ -28,6 +28,7 @@ CREATE TABLE `Reviews` (
   `title` varchar(50) NOT NULL,
   `corpus` text NOT NULL,
   PRIMARY KEY (`user_id`,`album_id`),
+  KEY `idx_album` (`album_id`),
   CONSTRAINT `Reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -70,4 +71,4 @@ CREATE TABLE `User` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-15 19:23:29
+-- Dump completed on 2024-05-16 15:41:45
