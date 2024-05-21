@@ -39,7 +39,7 @@
             <input type="submit" value="Login">
         </form>
 
-        <a href="register.php">Don't have an account yet? Register here</a>
+        <a id="register" href="register.php">Don't have an account yet? Register here</a>
     </div>
 
     <?php
