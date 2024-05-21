@@ -1,0 +1,9 @@
+.content{
+    margin-top: 10px;
+    background-color: var(--darker);
+    padding: 30px;
+}
+
+form input, form textarea{
+    color: black;
+}
