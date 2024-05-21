@@ -69,3 +69,7 @@ nav a{
     width: 50px;
     border-radius: 50%;
 }
+
+#user>a{
+    display: block;
+}
