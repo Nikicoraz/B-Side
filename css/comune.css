@@ -53,6 +53,15 @@ nav a{
     height: 100%;
 }
 
+.logout:hover {
+    color: red;
+    transition: 0.2s;
+}
+
+.logout {
+    transition: 0.2 s;
+}
+
 .flexable{
     display: flex;
     flex-direction: row;

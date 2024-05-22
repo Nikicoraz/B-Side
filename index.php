@@ -37,7 +37,7 @@
                 <?php 
                     if(isset($_SESSION["username"])){
                         echo "<p>" . $_SESSION["username"] . "</p>";
-                        echo "<a href=\"php_scripts/logout.php\">Logout</a>";
+                        echo "<a href=\"php_scripts/logout.php\" class=\"logout\">Logout</a>";
                     }else{
                         echo "<a href=\"login.php\">Login/Register</a>";
                     }
