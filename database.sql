@@ -15,6 +15,22 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+--
+-- Table structure for table `User`
+--
+
+DROP TABLE IF EXISTS `User`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `User` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` char(255) NOT NULL,
+  `username` varchar(30) NOT NULL,
+  `bio` tinytext DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Table structure for table `Reviews`
 --
@@ -24,7 +40,7 @@ DROP TABLE IF EXISTS `Reviews`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Reviews` (
   `user_id` int(11) NOT NULL,
-  `album_id` int(11) NOT NULL,
+  `album_id` varchar(60) NOT NULL,
   `title` varchar(50) NOT NULL,
   `corpus` text NOT NULL,
   PRIMARY KEY (`user_id`,`album_id`),
@@ -46,20 +62,7 @@ CREATE TABLE `Token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Table structure for table `User`
---
 
-DROP TABLE IF EXISTS `User`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `User` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
-  `password` char(255) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `bio` tinytext DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
