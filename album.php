@@ -120,7 +120,7 @@
                         <img src ="./images/like.png" id = "like">
                     </button>
                     <button id = "bdislike" onclick="checkdislike()">
-                        <img src ="images/dislike.png" id = "dislike" >
+                        <img src ="images/dislike.png" id="dislike" >
                     </button>
                     <?php
                     }
