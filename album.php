@@ -69,14 +69,16 @@
             </ul>
         </div>
     </div>
+
+    <!-- REVIEWS -->
+
     <?php
         include_once "php_scripts/connect_db.php";
         $conn = connect();
-        $_SESSION["album_id"] = $aid;
         $user = "";
         $cont = 0;
         if(isset($_SESSION["username"])){
-            $user_rev ="SELECT * FROM reviews r JOIN user u ON u.user_id = r.user_id WHERE r.album_id = '$aid'";
+            $user_rev ="SELECT * FROM Reviews r JOIN User u ON u.user_id = r.user_id WHERE r.album_id = '$aid'";
             $user_rev_res = $conn->query($user_rev);
             while($row = $user_rev_res->fetch_assoc()){
                 echo"<form id='user_review'>";
@@ -90,8 +92,8 @@
             if($cont == 0){
                 echo"<p>Non hai inserito alcuna recensione..</p>";
                 ?>
-                <form class="reviews" method = "post" action = "php_scripts/insert_review.php">
-                    <textarea name = "review_body" placeholder="Scrivi la tua recensione...." ></textarea>
+                <form class="reviews" id="reviewForm" method = "post" action = "php_scripts/insert_review.php" username="<?php echo $_SESSION['username'] ?>" album="<?php echo $aid ?>">
+                    <textarea name = "review_body" placeholder="Scrivi la tua recensione...." minlength="50" required></textarea>
                     <input type="submit" value = "Invia">
                 </form>
                 <?php
@@ -105,7 +107,7 @@
     <h1>Recensioni di altri utenti</h1>
 
     <?php 
-        $sql = "SELECT * FROM reviews r JOIN user u ON r.user_id = u.user_id WHERE r.album_id = '$aid'";
+        $sql = "SELECT * FROM Reviews r JOIN User u ON r.user_id = u.user_id WHERE r.album_id = '$aid'";
         $counter = 0;
         $res = $conn->query($sql);
         if($res->num_rows == 0){
@@ -152,6 +154,7 @@
     ?>
     </div>
     <script src="js/nav.js"></script>
+    <script src="js/sendReview.js"></script>
     <script src="js/like.js"></script>
 </body>
 </html>
