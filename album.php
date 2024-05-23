@@ -69,11 +69,89 @@
             </ul>
         </div>
     </div>
-    <div class="reviews">
-        <h1>Reviews</h1>
-        <textarea placeholder="Leave a review..."></textarea>
-        <button>Send</button>
+    <?php
+        include_once "php_scripts/connect_db.php";
+        $conn = connect();
+        $_SESSION["album_id"] = $aid;
+        $user = "";
+        $cont = 0;
+        if(isset($_SESSION["username"])){
+            $user_rev ="SELECT * FROM reviews r JOIN user u ON u.user_id = r.user_id WHERE r.album_id = '$aid'";
+            $user_rev_res = $conn->query($user_rev);
+            while($row = $user_rev_res->fetch_assoc()){
+                echo"<form id='user_review'>";
+                if($row["username"] == $_SESSION["username"]){
+                    echo"<h1>Your Review</h1>";    
+                    echo"<p>".$row['username']."</p>";
+                    echo"<textarea disabled>".$row['corpus']."</textarea>";
+                    $cont++;
+                }
+            }
+            if($cont == 0){
+                echo"<p>Non hai inserito alcuna recensione..</p>";
+                ?>
+                <form class="reviews" method = "post" action = "php_scripts/insert_review.php">
+                    <textarea name = "review_body" placeholder="Scrivi la tua recensione...." ></textarea>
+                    <input type="submit" value = "Invia">
+                </form>
+                <?php
+            }
+            echo"</form>";
+        }else{
+            echo"<p>Devi registrarti per poter recensire gli album.... </p><a id= 'registration' href = 'register.php'>Registrati qui</a>";
+        }
+        ?>
+    <div id = "reviews_list">
+    <h1>Recensioni di altri utenti</h1>
+
+    <?php 
+        $sql = "SELECT * FROM reviews r JOIN user u ON r.user_id = u.user_id WHERE r.album_id = '$aid'";
+        $counter = 0;
+        $res = $conn->query($sql);
+        if($res->num_rows == 0){
+            echo"<p>Nessuna recensione da parte di altri utenti :( </p>";
+        }else{
+            while($row = $res->fetch_assoc()){
+            if(isset($_SESSION["username"])){ 
+                if($row["username"] != $_SESSION["username"]){    
+                    echo"<div id = 'other_user_review' user = ".$row['username'].">";
+                    echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
+                    echo"<p>".$row['username']."</p>";
+                    echo"<textarea disabled>".$row['corpus']."</textarea>";
+                    $counter++;
+    ?>
+                
+                <img src ="images/like.png" id = "like">
+                <img src ="images/dislike.png" id = "dislike" >
+                <button id = "blike" onclick="checklike()">Like</button>
+                <button id = "bdislike" onclick="checklike()">Dislike</button>
+                <?php
+                }
+            }else{
+                echo"<div id = 'other_user_review' user = ".$row['username'].">";
+                echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
+                echo"<p>".$row['username']."</p>";
+                echo"<textarea disabled>".$row['corpus']."</textarea>";
+                $counter++;
+        ?>
+                <img src ="images/like.png" id = "like">
+                <img src ="images/dislike.png" id = "dislike">
+                <button id = "blike" onclick="checklike()">Like</button>
+                <button id = "bdislike" onclick="checkdislike()">Dislike</button>
+        <?php
+            }
+        ?>
+        
+        </div> 
+        <?php
+    }
+            if($counter == 0){
+                echo"<p>Nessuna recensione da parte di altri utenti :( </p>";
+            }
+        }
+    ?>
     </div>
     <script src="js/nav.js"></script>
+    <script src="js/like.js"></script>
 </body>
 </html>
