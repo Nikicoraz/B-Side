@@ -8,6 +8,70 @@
     height: 300px;
 }
 
-.reviews textarea, .reviews button{
+.reviews textarea{
     color: black;
+}
+form {
+    display: grid;
+    grid-template-rows: 50% auto;
+    width: 50%;
+    height: 15%;
+}
+form input[type="submit"]{
+    background-color: var(--darker);
+    border-bottom: 1px solid white;
+    font-size: 1.1rem;
+    margin-top: 2.5%;
+    transition: .5s ease;
+}
+form input[type="submit"]:hover{
+    border-bottom: 1px solid black;
+    background-color: #646363;
+    color: black;
+    
+}
+textarea 
+{
+    padding: 1%; 
+    height: 4rem;
+    color: black;
+    font-size: 1rem;
+    border: 1px solid var(--background-color);
+    border-radius: 10px;    
+}
+form textarea[placeholder]{
+    text-align: center;
+}
+form textarea:hover{
+    place-content: '';
+}
+#reviews_list{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--background-color);
+    margin-top: 1%;
+}
+#user_review{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--background-color);
+    margin-top: 1%;
+
+}
+div #review_profile-image{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+}
+div #like{
+    height: 2rem;
+    width: 2rem;
+}
+div #dislike{
+    height: 2rem;
+    width: 2rem;
+}
+#registration:hover{ 
+    color: var(--darker);
+
 }
