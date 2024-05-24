@@ -33,7 +33,7 @@
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" id="profile-image">
                 <?php 
                     if(isset($_SESSION["username"])){
-                        echo "<p>" . $_SESSION["username"] . "</p>";
+                        echo "<a href=\"user.php?username=" . $_SESSION['username'] . "\"><p>" . $_SESSION["username"] . "</p></a>";
                         echo "<a href=\"php_scripts/logout.php\">Logout</a>";
                     }else{
                         echo "<a href=\"login.php\">Login/Register</a>";
@@ -83,9 +83,9 @@
                 $row = $user_rev_res->fetch_assoc();
                 echo"<form id='user_review'>";
                 echo"<h1>Your Review</h1>";    
-                echo"<p>".$row['username']."</p>";
+                echo"<a href=\"user.php?username=" . $row['username'] . "\"><p>" . $row['username'] . "</p></a>";
                 echo"<textarea disabled>".$row['corpus']."</textarea>";
-            }else if($user_rev_res->num_rows == 0){
+            } else if($user_rev_res->num_rows == 0){
                 echo"<p>Non hai inserito alcuna recensione..</p>";
                 ?>
                 <form class="reviews" id="reviewForm" method = "post" action = "php_scripts/insert_review.php" username="<?php echo $_SESSION['username'] ?>" album="<?php echo $aid ?>">
