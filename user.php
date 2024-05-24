@@ -17,7 +17,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $username ?></title>
-    <link rel="stylesheet" href="css/diocane.css">
 </head>
 <body> 
     <nav>
@@ -26,7 +25,7 @@
     <?php 
         $conn = connect();
 
-        $stmt = $conn->prepare("SELECT user_id, bio FROM User WHERE username = ?");
+        $stmt = $conn->prepare("SELECT user_id, bio FROM user WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();

@@ -36,7 +36,7 @@
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" id="profile-image">
                 <?php 
                     if(isset($_SESSION["username"])){
-                        echo "<p>" . $_SESSION["username"] . "</p>";
+                        echo "<a href=\"user.php?username=$_SESSION[username]\">" . $_SESSION["username"] . "</a>";
                         echo "<a href=\"php_scripts/logout.php\" class=\"logout\">Logout</a>";
                     }else{
                         echo "<a href=\"login.php\">Login/Register</a>";
