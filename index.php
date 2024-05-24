@@ -26,7 +26,8 @@
 </head>
 <body>
     <nav>
-        <h1><a href="./">B-SIDE</a></h1>
+        <h1><a href="./" id = "navTitle">B-SIDE</a></h1>
+        <h1><img id = "logo" src = "disc.png"></h1>
         <div id="search-div">
             <input type="text" placeholder="Cerca..." name="ricerca" id="ricerca">
             <div id="results"></div>
@@ -36,8 +37,8 @@
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" id="profile-image">
                 <?php 
                     if(isset($_SESSION["username"])){
-                        echo "<a href=\"user.php?username=$_SESSION[username]\">" . $_SESSION["username"] . "</a>";
-                        echo "<a href=\"php_scripts/logout.php\" class=\"logout\">Logout</a>";
+                        echo "<p>" . $_SESSION["username"] . "</p>";
+                        echo "<a href=\"php_scripts/logout.php\">Logout</a>";
                     }else{
                         echo "<a href=\"login.php\">Login/Register</a>";
                     }
@@ -54,30 +55,50 @@
         <h1>Nuove uscite!</h1>
         <div id="nuove-uscite">
             <div class="album">
-                <img src="https://i.scdn.co/image/ab67616d0000b27347725a3bcf424bf5c8d98aec" alt="">
-                <h3>Symphony No. 9 in D Minor, Op. 125 "Choral"</h3>
+                <?php 
+                      $curl = curl_init("https://api.spotify.com/v1/browse/new-releases?limit=3");
+      
+                      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                      curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+      
+                      $ret = curl_exec($curl);
+      
+                      if ($ret === false) {
+                          $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+      
+                          if ($http_code == 401) {
+                              $token = grab_new_token();
+                              curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $token));
+                              $ret = curl_exec($curl);
+      
+                              if ($ret === false) {
+                                  echo "Errore curl: " . curl_error($curl);
+                                  var_dump(curl_getinfo($curl));
+                                  exit;
+                              }
+                          } else {
+                              echo "Errore curl: " . curl_error($curl);
+                              var_dump(curl_getinfo($curl));
+                              exit;
+                          }
+                      }
+      
+                      $new_releases = json_decode($ret, true);
+                      curl_close($curl);
+      
+                      if (!empty($new_releases['albums']['items'])) {
+                          foreach ($new_releases['albums']['items'] as $album) {
+                              echo '<div class="album">';
+                              echo '<img src="' . $album['images'][0]['url'] . '" alt="' . htmlspecialchars($album['name']) . '">';
+                              echo '<h3>' . htmlspecialchars($album['name']) . '</h3>';
+                              echo '</div>';
+                              echo '</a>';
+                          }
+                      } else {
+                          echo '<p>Non ci sono nuove uscite disponibili al momento.</p>';
+                      }
+                ?>
             </div>
-            <div class="album">
-                <img src="https://i.pinimg.com/originals/c0/53/54/c0535410a15a60839564c8c10eb6587a.jpg" alt="">
-                <h3>Quattro Stagioni</h3>
-            </div>
-            <div class="album">
-                <img src="https://www.ibs.it/images/5400863054984_0_536_0_75.jpg" alt="">
-                <h3>Concerti Brandeburghesi</h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-div flexable">
-        <div class="album">
-            <h3>Album random</h3>
-            <img src="https://m.media-amazon.com/images/I/715LZJ5qX0L._UF1000,1000_QL80_.jpg" alt="">
-            <h3>Ok Computer</h3>
-        </div>
-        <div class="album">
-            <h3>Album del giorno</h3>
-            <img src="https://m.media-amazon.com/images/I/51Ozg3raqjL._UXNaN_FMjpg_QL85_.jpg" alt="">
-            <h3>Padre e Figlio</h3>
         </div>
     </div>
     <script src="js/nav.js"></script>

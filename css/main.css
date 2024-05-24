@@ -32,6 +32,7 @@
     text-align: center;
 }
 
+
 @keyframes fade-in{
     0%{
         opacity: 0;
@@ -41,3 +42,4 @@
         opacity: 1;
     }
 }
+

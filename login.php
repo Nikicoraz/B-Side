@@ -15,7 +15,8 @@
 </head>
 <body>
     <nav>
-        <h1><a href="./">B-SIDE</a></h1>
+        <h1><a href="./" id = "navTitle">B-SIDE</a></h1>
+        <h1><img id = "logo" src = "disc.png"></h1>
         <div id="search-div">
             <input type="text" placeholder="Cerca..." name="ricerca" id="ricerca">
             <div id="results"></div>
@@ -60,7 +61,7 @@
                 die("Please fill in all fields");
             }
 
-            $ris = $conn->query("SELECT password FROM user WHERE username = '$username'");
+            $ris = $conn->query("SELECT password FROM User WHERE username = '$username'");
 
             if($ris->num_rows == 0){
                 die("User not found");

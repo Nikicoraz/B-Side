@@ -11,12 +11,13 @@
 .result-item{
     display: flex;
     align-items: center;
+    padding-bottom: 10px;
 }
 
 .result-item>p{
-padding: 10px;
+    padding: 10px;
 }
 
 .result-item>img{
-    height: 100px;
+    height: 90px;
 }

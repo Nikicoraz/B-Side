@@ -13,12 +13,12 @@
 
             $conn = connect();
 
-            $q = $conn->query("SELECT token FROM token");
+            $q = $conn->query("SELECT token FROM Token");
 
             if($q->num_rows > 0){
-                $conn->query("UPDATE token SET token = '$new_token'");
+                $conn->query("UPDATE Token SET token = '$new_token'");
             }else{
-                $conn->query("INSERT INTO token(token) VALUES('$new_token')");
+                $conn->query("INSERT INTO Token(token) VALUES('$new_token')");
             }
         }
 
@@ -48,7 +48,7 @@
         $token = null;
 
         // Query the database for the token
-        $q = $conn->query("SELECT token FROM token");
+        $q = $conn->query("SELECT token FROM Token");
 
         // If the token exists in the database
         if($q->num_rows == 1){

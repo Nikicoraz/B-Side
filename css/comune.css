@@ -74,11 +74,37 @@ nav a{
     display: block;
 }
 
-.logout:hover {
-    color: red;
-    transition: 0.2s;
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    20% {
+        transform: rotate(72deg);
+        animation-timing-function: ease-in;
+    }
+    40% {
+        transform: rotate(144deg);
+        animation-timing-function: ease-out;
+    }
+    60% {
+        transform: rotate(216deg);
+        animation-timing-function: ease-in;
+    }
+    80% {
+        transform: rotate(288deg);
+        animation-timing-function: ease-out;
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-.logout {
-    transition: 0.2 s;
+#navTitle{
+  margin-bottom: 20px;
+}
+
+#logo{
+    width: 84px;
+    animation: rotate 10s linear infinite;
+    transform-origin: center center;
 }
