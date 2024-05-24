@@ -64,7 +64,7 @@
 
             if($ris->num_rows == 0){
                 die("User not found");
-            }else{
+            } else {
                 if(password_verify($password, $ris->fetch_assoc()["password"])){
                     $_SESSION["username"] = $username;
                     echo "<script>window.location.href = 'index.php';</script>";
