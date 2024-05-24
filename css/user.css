@@ -1,0 +1,51 @@
+.logout:hover {
+    color: red;
+    transition: 0.2s;
+}
+
+.logout {
+    transition: 0.2 s;
+}
+
+.review {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: var(--darker);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.review-left,
+.review-right {
+    padding: 20px;
+}
+
+.review-left {
+    flex: 0 0 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-right: 1px solid white;
+    transition: 1s;
+}
+
+.review-left:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.review-left img {
+    max-width: 150px;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.review h2 {
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid white;
+}
+
+.review p {
+    margin-bottom: 10px;
+}
