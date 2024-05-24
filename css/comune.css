@@ -73,3 +73,12 @@ nav a{
 #user>a{
     display: block;
 }
+
+.logout:hover {
+    color: red;
+    transition: 0.2s;
+}
+
+.logout {
+    transition: 0.2 s;
+}
