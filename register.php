@@ -82,5 +82,6 @@
             }
         }
     ?>
+    <script src="js/profile_images.js"></script>
 </body>
 </html>

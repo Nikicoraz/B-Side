@@ -73,5 +73,44 @@ div #dislike{
 }
 #registration:hover{ 
     color: var(--darker);
+}
+
+#reviews_list{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--background-color);
+    margin-top: 1%;
+}
+#user_review{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--background-color);
+    margin-top: 1%;
+}
+
+div #review_profile-image{
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+}
+
+#registration:hover{ 
+    color: var(--darker);
+}
+#like_dislike{ 
+    display: flex;
+    flex-direction: row;
+}
+
+#like_dislike img{   
+    height: 2rem;
+    width: 2rem;
+    margin: 0.3rem;
+}
+
+#like_dislike p{
+    margin-top: 1rem;
+    margin-right: 1rem;  
+    margin-left: 0.5rem;  
 
 }

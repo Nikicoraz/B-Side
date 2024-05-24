@@ -86,7 +86,7 @@
                 echo"<p>".$row['username']."</p>";
                 echo"<textarea disabled>".$row['corpus']."</textarea>";
             }else if($user_rev_res->num_rows == 0){
-                echo"<p>Non hai inserito alcuna recensione..</p>";
+                echo"<p>Non hai inserito alcuna recensione...</p>";
                 ?>
                 <form class="reviews" id="reviewForm" method = "post" action = "php_scripts/insert_review.php" username="<?php echo $_SESSION['username'] ?>" album="<?php echo $aid ?>">
                     <textarea name = "review_body" placeholder="Scrivi la tua recensione...." minlength="50" required></textarea>
@@ -95,7 +95,7 @@
                 <?php
                 echo"</form>";
             }else{
-                echo"<p>Devi registrarti per poter recensire gli album.... </p><a id= 'registration' href = 'register.php'>Registrati qui</a>";
+                echo"<p>Devi registrarti per poter recensire gli album e mettere like...</p><a id= 'registration' href = 'register.php'>Registrati qui</a>";
             }
         }
         ?>
@@ -109,21 +109,39 @@
             echo"<p>Nessuna recensione da parte di altri utenti :( </p>";
         }else{
             while($row = $res->fetch_assoc()){
-                if(isset($_SESSION["username"])){ 
-                    if($row["username"] != $_SESSION["username"]){    
-                        echo"<div id = 'other_user_review' user = ".$row['username'].">";
-                        echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
-                        echo"<p>".$row['username']."</p>";
-                        echo"<textarea disabled>".$row['corpus']."</textarea>";
-        ?>
-                    <button id = "blike" onclick="checklike()">
-                        <img src ="./images/like.png" id = "like">
-                    </button>
-                    <button id = "bdislike" onclick="checkdislike()">
-                        <img src ="images/dislike.png" id="dislike" >
-                    </button>
-                    <?php
+                $utente_rev = $row['user_id'];
+                $utente_log = $_SESSION["username"];   
+                if(isset($_SESSION["username"]) && $row["username"] != $_SESSION["username"]){
+                    echo"<div id = 'other_user_review' user = ".$row['username'].">";
+                    echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
+                    echo"<p>".$row['username']."</p>";
+                    echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
+                    echo"<div id ='like_dislike' user='$utente_rev' album='$aid' user_log='$utente_log'>";
+
+                    $contr_like = $conn->query("SELECT * FROM likes WHERE reviewer_id = '$utente_rev' AND album_id = '$aid' AND user = '$utente_log'");
+                    if($contr_like->num_rows == 1 ){
+                        echo"<img src ='images/like_checked.png' id = 'like' onclick='checklike(this)'>";
+                    }else{
+                        echo"<img src ='images/like.png' id = 'like' onclick='checklike(this)'>";
                     }
+                    echo"<p>".$row["likes"]."</p>";
+
+                    $contr_dislike = $conn->query("SELECT * FROM dislikes WHERE reviewer_id = '$Utente_rev' AND album_id= '$aid' AND user = '$Utente_log'");
+                    if($contr_dislike->num_rows == 1){
+                        echo"<img src ='images/dislike_checked.png' id = 'dislike' onclick='checkdislike(this)'>";
+                    }else{
+                        echo"<img src ='images/dislike.png' id = 'dislike' onclick='checkdislike(this)'>";
+                    } 
+                    echo"<p>".$row["dislikes"]."</p>";
+                    echo"</div>";
+?>
+                <button id = "blike" onclick="checklike()">
+                    <img src ="./images/like.png" id = "like">
+                </button>
+                <button id = "bdislike" onclick="checkdislike()">
+                    <img src ="images/dislike.png" id="dislike" >
+                </button>
+                <?php
                 }
             }
         }
@@ -133,6 +151,6 @@
     </div>
     <script src="js/nav.js"></script>
     <script src="js/sendReview.js"></script>
-    <script src="js/like.js"></script>
+    <script src="js/likes.js"></script>
 </body>
 </html>
