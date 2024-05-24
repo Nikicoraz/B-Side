@@ -6,16 +6,16 @@
             die(401);
         }else{
             $usr =  $_POST['username'];
-            $res = $c->query("SELECT user_id FROM  User WHERE username ='$usr' LIMIT 1");
+            $res = $c->query("SELECT user_id FROM  user WHERE username ='$usr' LIMIT 1");
             while ($row = $res->fetch_assoc()) {
                 $usr_id = $row['user_id'];
             }
 
-            if($c->query("SELECT * FROM Reviews WHERE user_id = '$usr_id' AND album_id = '$_POST[album_id]'")->num_rows > 0){
+            if($c->query("SELECT * FROM reviews WHERE user_id = '$usr_id' AND album_id = '$_POST[album_id]'")->num_rows > 0){
                 die(409);
             }
 
-            $insert = "INSERT INTO Reviews VALUES (?,?,?,?)";
+            $insert = "INSERT INTO reviews VALUES (?,?,?,?)";
             if($stmt = $c->prepare($insert)){
                 $aid = $_POST["album_id"];
                 $title = "";

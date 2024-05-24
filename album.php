@@ -77,7 +77,7 @@
         $conn = connect();
         $user = "";
         if(isset($_SESSION["username"])){
-            $user_rev ="SELECT * FROM Reviews r JOIN User u ON u.user_id = r.user_id AND r.album_id = '$aid' WHERE u.username = '$_SESSION[username]'";
+            $user_rev ="SELECT * FROM reviews r JOIN user u ON u.user_id = r.user_id AND r.album_id = '$aid' WHERE u.username = '$_SESSION[username]'";
             $user_rev_res = $conn->query($user_rev);
             if($user_rev_res->num_rows == 1){
                 $row = $user_rev_res->fetch_assoc();
@@ -103,7 +103,7 @@
     <h1>Recensioni di altri utenti</h1>
 
     <?php 
-        $sql = "SELECT * FROM Reviews r JOIN User u ON r.user_id = u.user_id AND r.album_id = '$aid'";
+        $sql = "SELECT * FROM reviews r JOIN user u ON r.user_id = u.user_id AND r.album_id = '$aid'";
         $res = $conn->query($sql);
         if($res->num_rows == 0){
             echo"<p>Nessuna recensione da parte di altri utenti :( </p>";

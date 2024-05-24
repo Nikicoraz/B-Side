@@ -60,7 +60,7 @@
                 die("Please fill in all fields");
             }
 
-            $ris = $conn->query("SELECT password FROM User WHERE username = '$username'");
+            $ris = $conn->query("SELECT password FROM user WHERE username = '$username'");
 
             if($ris->num_rows == 0){
                 die("User not found");

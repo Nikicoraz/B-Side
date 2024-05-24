@@ -20,10 +20,10 @@
 -- Table structure for table `User`
 --
 
-DROP TABLE IF EXISTS `User`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `User` (
+CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `password` char(255) NOT NULL,
   `username` varchar(30) NOT NULL,
@@ -35,10 +35,10 @@ CREATE TABLE `User` (
 -- Table structure for table `Reviews`
 --
 
-DROP TABLE IF EXISTS `Reviews`;
+DROP TABLE IF EXISTS `reviews`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Reviews` (
+CREATE TABLE `reviews` (
   `user_id` int(11) NOT NULL,
   `album_id` varchar(60) NOT NULL,
   `title` varchar(50) NOT NULL,
@@ -53,10 +53,10 @@ CREATE TABLE `Reviews` (
 -- Table structure for table `Token`
 --
 
-DROP TABLE IF EXISTS `Token`;
+DROP TABLE IF EXISTS `token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Token` (
+CREATE TABLE `token` (
   `token` varchar(255) NOT NULL,
   PRIMARY KEY (`token`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

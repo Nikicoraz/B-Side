@@ -68,12 +68,12 @@
                 die("Bio must be at least 10 characters long");
             }
 
-            if($conn->query("SELECT username from User WHERE username = '$username'")->num_rows > 0){
+            if($conn->query("SELECT username from user WHERE username = '$username'")->num_rows > 0){
                 die("Username already exists");
             }else{
                 $password = password_hash($password, PASSWORD_DEFAULT);
 
-                if($conn->query("INSERT INTO User (username, password, bio) VALUES ('$username', '$password', '$bio')")){
+                if($conn->query("INSERT INTO user (username, password, bio) VALUES ('$username', '$password', '$bio')")){
                     $_SESSION["username"] = $username;
                     echo "<script>window.location = 'index.php'</script>";
                 }else{
