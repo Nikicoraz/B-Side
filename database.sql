@@ -28,6 +28,7 @@ CREATE TABLE `user` (
   `password` char(255) NOT NULL,
   `username` varchar(30) NOT NULL,
   `bio` tinytext DEFAULT NULL,
+  `profile_picture` varchar(255) NOT NULL DEFAULT './images/profile_pictures/default.jpg',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
