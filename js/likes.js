@@ -16,9 +16,22 @@ const likes = (() => {
                 console.log(data);
             }else{
                 if(e.classList == "like"){
-                    e.src = src == like ? "images/" + like_checked : "images/" + like;
+                    if(src == like){
+                        e.src = "images/" + like_checked;
+                        e.parentElement.children[1].innerHTML = Number(e.parentElement.children[1].innerHTML) + 1;
+                    }else{
+                        e.src = "images/" + like;
+                        e.parentElement.children[1].innerHTML = Number(e.parentElement.children[1].innerHTML) - 1;
+                    }
+                    
                 }else if(e.classList == "dislike"){
-                    e.src = src == dislike ? "images/" + dislike_checked : "images/" + dislike;
+                    if(src == dislike){
+                        e.src = "images/" + dislike_checked;
+                        e.parentElement.children[3].innerHTML = Number(e.parentElement.children[3].innerHTML) + 1;
+                    }else{
+                        e.src = "images/" + dislike;
+                        e.parentElement.children[3].innerHTML = Number(e.parentElement.children[3].innerHTML) - 1;
+                    }
                 }
             }
             callback();
@@ -26,16 +39,19 @@ const likes = (() => {
     }
 
     arr.forEach(e => {
-        const user = e.parentElement.getAttribute("user");
-        const album = e.parentElement.getAttribute("album");
         
         e.addEventListener("click", event =>{
             let data = new FormData();
+            const user = e.parentElement.getAttribute("user");
+            const album = e.parentElement.getAttribute("album");
+            const rev_user = e.parentElement.getAttribute("rev_user");
             
             
             const src = e.src.split("/").slice(-1)[0];
             data.append("user", user);
             data.append("album", album);
+            data.append("rev_user", rev_user);
+
             if(e.classList == "like"){
                 data.append("type", "like");
 
@@ -51,6 +67,7 @@ const likes = (() => {
                     tempData.append("album", album);
                     tempData.append("type", "dislike");
                     tempData.append("action", "delete");
+                    tempData.append("rev_user", rev_user);
 
                     sendRequest(e.parentElement.children[2], tempData, src, () => {sendRequest(e, data, src, () => {})})
                 }else{
@@ -70,6 +87,8 @@ const likes = (() => {
                     tempData.append("album", album);
                     tempData.append("type", "like");
                     tempData.append("action", "delete");
+                    tempData.append("rev_user", rev_user);
+
 
                     sendRequest(e.parentElement.children[0], tempData, src, () => {sendRequest(e, data, src, () => {})})
                 }else{

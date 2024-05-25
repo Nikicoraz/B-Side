@@ -111,28 +111,31 @@
             while($row = $res->fetch_assoc()){
                 if(isset($_SESSION["username"])){
                     if($row["username"] != $_SESSION["username"]){
-                        $utente_log = $_SESSION["username"];   
+                        $utente_log = $_SESSION["username"];
+                        $user_id = $conn->query("SELECT user_id FROM user WHERE username = '$utente_log'")->fetch_assoc()["user_id"];
+                        $utente_rev = $row["user_id"];
+
                         echo"<div id = 'other_user_review' user = ".$row['username'].">";
                         echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
                         echo"<p>".$row['username']."</p>";
                         echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
                     
-                        echo"<div id ='like_dislike' album='$aid' user='$utente_log'>";
-                        $contr_like = $conn->query("SELECT * FROM likes WHERE album_id = '$aid' AND user_id = '$utente_log' AND type = 'like'");
+                        echo"<div id ='like_dislike' album='$aid' user='$user_id' rev_user='$utente_rev'>";
+                        $contr_like = $conn->query("SELECT * FROM likes WHERE liking_user_id = '$user_id' AND album_id = '$aid' AND user_id = '$utente_rev' AND type = 'like'");
                         if($contr_like->num_rows == 1 ){
                             echo"<img src ='images/like_checked.png' id = 'like' class='like'>";
                         }else{
                             echo"<img src ='images/like.png' id = 'like' class='like'>";
                         }
-                        echo"<p>". "cambia" ."</p>";
+                        echo"<p>". $conn->query("SELECT COUNT(*) FROM likes WHERE user_id='$utente_rev' AND album_id= '$aid' AND type = 'like'")->fetch_assoc()["COUNT(*)"] ."</p>";
     
-                        $contr_dislike = $conn->query("SELECT * FROM likes WHERE album_id= '$aid' AND user_id = '$utente_log' AND type = 'dislike'");
+                        $contr_dislike = $conn->query("SELECT * FROM likes WHERE liking_user_id = '$user_id' AND album_id= '$aid' AND user_id = '$utente_rev' AND type = 'dislike'");
                         if($contr_dislike->num_rows == 1){
                             echo"<img src ='images/dislike_checked.png' id = 'dislike' class='dislike'>";
                         }else{
                             echo"<img src ='images/dislike.png' id = 'dislike' class='dislike'>";
                         } 
-                        echo"<p>"."cambia"."</p>";
+                        echo"<p>".$conn->query("SELECT COUNT(*) FROM likes WHERE user_id='$utente_rev' AND album_id= '$aid' AND type = 'dislike'")->fetch_assoc()["COUNT(*)"]."</p>";
                         echo"</div>";
                     }
                 }else{
