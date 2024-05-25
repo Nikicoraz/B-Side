@@ -92,9 +92,9 @@
                     <input type="submit" value="Invia">
                 </form>
                 <?php
-                echo "</form>";
-            } else {
-                echo "<p>Devi registrarti per poter recensire gli album... </p><a id= 'registration' href = 'register.php'>Registrati qui</a>";
+                echo"</form>";
+            }else{
+                echo"<p>Devi registrarti per poter recensire gli album e mettere like...</p><a id= 'registration' href = 'register.php'>Registrati qui</a>";
             }
         }
         ?>
@@ -104,25 +104,45 @@
     <?php 
         $sql = "SELECT * FROM reviews r JOIN user u ON r.user_id = u.user_id AND r.album_id = '$aid'";
         $res = $conn->query($sql);
-        if($res->num_rows == 0) {
-            echo "<p>Nessuna recensione da parte di altri utenti :( </p>";
-        } else {
-            while($row = $res->fetch_assoc()) {
-                if(isset($_SESSION["username"])) { 
-                    if($row["username"] != $_SESSION["username"]) {    
+        if($res->num_rows == 0){
+            echo"<p>Nessuna recensione da parte di altri utenti :( </p>";
+        }else{
+            while($row = $res->fetch_assoc()){
+                if(isset($_SESSION["username"])){
+                    if($row["username"] != $_SESSION["username"]){
+                        $utente_log = $_SESSION["username"];
+                        $user_id = $conn->query("SELECT user_id FROM user WHERE username = '$utente_log'")->fetch_assoc()["user_id"];
+                        $utente_rev = $row["user_id"];
+
                         echo"<div id = 'other_user_review' user = ".$row['username'].">";
                         echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
                         echo"<p>".$row['username']."</p>";
-                        echo"<textarea disabled>".$row['corpus']."</textarea>";
-                        ?>
-                        <button id="blike" onclick="checklike()">
-                        <img src="./images/like.png" id="like">
-                        </button>
-                        <button id="bdislike" onclick="checkdislike()">
-                        <img src="images/dislike.png" id="dislike" >
-                        </button>
-                    <?php
+                        echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
+                    
+                        echo"<div id ='like_dislike' album='$aid' user='$user_id' rev_user='$utente_rev'>";
+                        $contr_like = $conn->query("SELECT * FROM likes WHERE liking_user_id = '$user_id' AND album_id = '$aid' AND user_id = '$utente_rev' AND type = 'like'");
+                        if($contr_like->num_rows == 1 ){
+                            echo"<img src ='images/like_checked.png' id = 'like' class='like'>";
+                        }else{
+                            echo"<img src ='images/like.png' id = 'like' class='like'>";
+                        }
+                        echo"<p>". $conn->query("SELECT COUNT(*) FROM likes WHERE user_id='$utente_rev' AND album_id= '$aid' AND type = 'like'")->fetch_assoc()["COUNT(*)"] ."</p>";
+    
+                        $contr_dislike = $conn->query("SELECT * FROM likes WHERE liking_user_id = '$user_id' AND album_id= '$aid' AND user_id = '$utente_rev' AND type = 'dislike'");
+                        if($contr_dislike->num_rows == 1){
+                            echo"<img src ='images/dislike_checked.png' id = 'dislike' class='dislike'>";
+                        }else{
+                            echo"<img src ='images/dislike.png' id = 'dislike' class='dislike'>";
+                        } 
+                        echo"<p>".$conn->query("SELECT COUNT(*) FROM likes WHERE user_id='$utente_rev' AND album_id= '$aid' AND type = 'dislike'")->fetch_assoc()["COUNT(*)"]."</p>";
+                        echo"</div>";
                     }
+                }else{
+                    echo"<div id = 'other_user_review' user = ".$row['username'].">";
+                    echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
+                    echo"<p>".$row['username']."</p>";
+                    echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
+                
                 }
             }
         }
@@ -132,6 +152,6 @@
     </div>
     <script src="js/nav.js"></script>
     <script src="js/sendReview.js"></script>
-    <script src="js/like.js"></script>
+    <script src="js/likes.js"></script>
 </body>
 </html>

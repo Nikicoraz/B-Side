@@ -15,9 +15,8 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-
 --
--- Table structure for table `User`
+-- Table structure for table `likes`
 --
 
 DROP TABLE IF EXISTS `user`;
@@ -30,10 +29,38 @@ CREATE TABLE `user` (
   `bio` tinytext DEFAULT NULL,
   `profile_picture` varchar(255) NOT NULL DEFAULT './images/profile_pictures/default.jpg',
   PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `likes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `likes` (
+  `user_id` int(11) NOT NULL,
+  `album_id` varchar(60) NOT NULL,
+  `liking_user_id` int(11) NOT NULL,
+  `type` enum('like','dislike') DEFAULT NULL,
+  PRIMARY KEY (`user_id`,`album_id`,`liking_user_id`),
+  KEY `album_id` (`album_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `Reviews`
+-- Table structure for table `profiles_images`
+--
+
+DROP TABLE IF EXISTS `profiles_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `profiles_images` (
+  `user_id` int(11) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `reviews`
 --
 
 DROP TABLE IF EXISTS `reviews`;
@@ -46,12 +73,12 @@ CREATE TABLE `reviews` (
   `corpus` text NOT NULL,
   PRIMARY KEY (`user_id`,`album_id`),
   KEY `idx_album` (`album_id`),
-  CONSTRAINT `Reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `User` (`user_id`)
+  CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `Token`
+-- Table structure for table `token`
 --
 
 DROP TABLE IF EXISTS `token`;
@@ -63,6 +90,9 @@ CREATE TABLE `token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `user`
+--
 
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -75,4 +105,4 @@ CREATE TABLE `token` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-16 15:41:45
+-- Dump completed on 2024-05-25 19:59:07
