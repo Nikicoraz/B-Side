@@ -109,31 +109,38 @@
             echo"<p>Nessuna recensione da parte di altri utenti :( </p>";
         }else{
             while($row = $res->fetch_assoc()){
-                $utente_rev = $row['user_id'];
-                $utente_log = $_SESSION["username"];   
-                if(isset($_SESSION["username"]) && $row["username"] != $_SESSION["username"]){
+                if(isset($_SESSION["username"])){
+                    if($row["username"] != $_SESSION["username"]){
+                        $utente_log = $_SESSION["username"];   
+                        echo"<div id = 'other_user_review' user = ".$row['username'].">";
+                        echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
+                        echo"<p>".$row['username']."</p>";
+                        echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
+                    
+                        echo"<div id ='like_dislike' album='$aid' user='$utente_log'>";
+                        $contr_like = $conn->query("SELECT * FROM likes WHERE album_id = '$aid' AND user_id = '$utente_log' AND type = 'like'");
+                        if($contr_like->num_rows == 1 ){
+                            echo"<img src ='images/like_checked.png' id = 'like' class='like'>";
+                        }else{
+                            echo"<img src ='images/like.png' id = 'like' class='like'>";
+                        }
+                        echo"<p>". "cambia" ."</p>";
+    
+                        $contr_dislike = $conn->query("SELECT * FROM likes WHERE album_id= '$aid' AND user_id = '$utente_log' AND type = 'dislike'");
+                        if($contr_dislike->num_rows == 1){
+                            echo"<img src ='images/dislike_checked.png' id = 'dislike' class='dislike'>";
+                        }else{
+                            echo"<img src ='images/dislike.png' id = 'dislike' class='dislike'>";
+                        } 
+                        echo"<p>"."cambia"."</p>";
+                        echo"</div>";
+                    }
+                }else{
                     echo"<div id = 'other_user_review' user = ".$row['username'].">";
                     echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
                     echo"<p>".$row['username']."</p>";
                     echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
-                    echo"<div id ='like_dislike' user='$utente_rev' album='$aid' user_log='$utente_log'>";
-
-                    $contr_like = $conn->query("SELECT * FROM likes WHERE album_id = '$aid' AND user_id = '$utente_log' AND type = 'like'");
-                    if($contr_like->num_rows == 1 ){
-                        echo"<img src ='images/like_checked.png' id = 'like' class='like'>";
-                    }else{
-                        echo"<img src ='images/like.png' id = 'like' class='like'>";
-                    }
-                    echo"<p>". "cambia" ."</p>";
-
-                    $contr_dislike = $conn->query("SELECT * FROM likes WHERE album_id= '$aid' AND user_id = '$utente_log' AND type = 'dislike'");
-                    if($contr_dislike->num_rows == 1){
-                        echo"<img src ='images/dislike_checked.png' id = 'dislike' class='dislike'>";
-                    }else{
-                        echo"<img src ='images/dislike.png' id = 'dislike' class='dislike'>";
-                    } 
-                    echo"<p>"."cambia"."</p>";
-                    echo"</div>";
+                
                 }
             }
         }
