@@ -6,7 +6,7 @@
     session_start();
 
     if(isset($_GET['username']))
-        $username = $_GET['username'];
+        $username = urldecode($_GET['username']);
     else
         die("<h1>User not found! :/</h1>");
 
@@ -88,6 +88,15 @@
         echo "</div>";
         $stmt->close();
         $conn->close();
+    ?>
+
+    <?php
+        // controllo che l'utente loggato sia quello della pagina, in modo che possa modificare la propria pagina 
+        if ($_SESSION["username"] == $username) {
+            echo "<div>";
+                echo "<a href=\"./user_settings.php\"><button>Manage profile</button></a>";
+            echo "</div>";
+        }
     ?>
 </body>
 </html>
