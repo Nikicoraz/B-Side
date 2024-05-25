@@ -9,7 +9,7 @@
          * @param string $new_token The new token to be stored in the database
          */
         function replace_existing_token($new_token){
-            include_once "php_scripts/connect_db.php";
+            include_once dirname(__FILE__) . "/connect_db.php";
 
             $conn = connect();
 
@@ -42,7 +42,7 @@
      * @return string The Spotify API token
      */
     function get_token(){
-        include dirname(__FILE__) . "/connect_db.php";
+        include_once dirname(__FILE__) . "/connect_db.php";
 
         $conn = connect();
         $token = null;

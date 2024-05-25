@@ -118,30 +118,22 @@
                     echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
                     echo"<div id ='like_dislike' user='$utente_rev' album='$aid' user_log='$utente_log'>";
 
-                    $contr_like = $conn->query("SELECT * FROM likes WHERE reviewer_id = '$utente_rev' AND album_id = '$aid' AND user = '$utente_log'");
+                    $contr_like = $conn->query("SELECT * FROM likes WHERE album_id = '$aid' AND user_id = '$utente_log' AND type = 'like'");
                     if($contr_like->num_rows == 1 ){
-                        echo"<img src ='images/like_checked.png' id = 'like' onclick='checklike(this)'>";
+                        echo"<img src ='images/like_checked.png' id = 'like' class='like'>";
                     }else{
-                        echo"<img src ='images/like.png' id = 'like' onclick='checklike(this)'>";
+                        echo"<img src ='images/like.png' id = 'like' class='like'>";
                     }
-                    echo"<p>".$row["likes"]."</p>";
+                    echo"<p>". "cambia" ."</p>";
 
-                    $contr_dislike = $conn->query("SELECT * FROM dislikes WHERE reviewer_id = '$Utente_rev' AND album_id= '$aid' AND user = '$Utente_log'");
+                    $contr_dislike = $conn->query("SELECT * FROM likes WHERE album_id= '$aid' AND user_id = '$utente_log' AND type = 'dislike'");
                     if($contr_dislike->num_rows == 1){
-                        echo"<img src ='images/dislike_checked.png' id = 'dislike' onclick='checkdislike(this)'>";
+                        echo"<img src ='images/dislike_checked.png' id = 'dislike' class='dislike'>";
                     }else{
-                        echo"<img src ='images/dislike.png' id = 'dislike' onclick='checkdislike(this)'>";
+                        echo"<img src ='images/dislike.png' id = 'dislike' class='dislike'>";
                     } 
-                    echo"<p>".$row["dislikes"]."</p>";
+                    echo"<p>"."cambia"."</p>";
                     echo"</div>";
-?>
-                <button id = "blike" onclick="checklike()">
-                    <img src ="./images/like.png" id = "like">
-                </button>
-                <button id = "bdislike" onclick="checkdislike()">
-                    <img src ="images/dislike.png" id="dislike" >
-                </button>
-                <?php
                 }
             }
         }

@@ -1,106 +1,83 @@
-function checklike(param){
-    let data = new FormData();
-    let padre = param.parentElement;
-    let dislike = padre.children[2];
-    let like_counter = padre.children[1];
-    let dislike_counter = padre.children[3];
+const likes = (() => {
+    const arr = [...document.getElementsByClassName("like"), ...document.getElementsByClassName("dislike")];
 
-    let n_like = parseInt(like_counter.innerHTML);
-    let n_dislike = parseInt(dislike_counter.innerHTML);
+    const like = "like.png";
+    const like_checked = "like_checked.png";
 
+    const dislike = "dislike.png";
+    const dislike_checked = "dislike_checked.png";
 
-    data.append("user", padre.getAttribute("user"));
-    data.append("aid", padre.getAttribute("album"));
-    data.append("user_log", padre.getAttribute("user_log"));
-    if(param.src == "http://localhost/B-Side-master/images/like.png") {
-        param.src = "http://localhost/B-Side-master/images/like_checked.png";
-        
-        if(dislike.src == "http://localhost/B-Side-master/images/dislike_checked.png") { 
-            dislike.src = "http://localhost/B-Side-master/images/dislike.png";
-
-            fetch("./php_scripts/removeDislike.php", {
-                method: "POST",
-                body: data
-                }).then(res => res.text())
-                .then(txt => console.log(txt))
-                .catch(err => console.error(err));
-
-            n_dislike--;    
-        }
-        
-        fetch("./php_scripts/addlike.php", {
+    function sendRequest(e, data, src, callback){
+        fetch("./php_scripts/insert_like.php", {
             method: "POST",
             body: data
-            }).then(res => res.text())
-            .then(txt => console.log(txt))
-            .catch(err => console.error(err));
-            n_like++;
-
-    }else{
-        param.src = "http://localhost/B-Side-master/images/like.png";
-        fetch("./php_scripts/removelike.php", {
-            method: "POST",
-            body: data
-            }).then(res => res.text())
-            .then(txt => console.log(txt))
-            .catch(err => console.error(err));
-            n_like--;
-
+        }).then(res => res.text()).then(data => {
+            if(data != ""){
+                console.log(data);
+            }else{
+                if(e.classList == "like"){
+                    e.src = src == like ? "images/" + like_checked : "images/" + like;
+                }else if(e.classList == "dislike"){
+                    e.src = src == dislike ? "images/" + dislike_checked : "images/" + dislike;
+                }
+            }
+            callback();
+        });
     }
 
-    like_counter.innerHTML = ""+n_like;
-    dislike_counter.innerHTML = ""+n_dislike;
-};
-
-function checkdislike(param){
-    let padre = param.parentElement;
-    let like = padre.children[0];
-    let data = new FormData();
-
-    let like_counter = padre.children[1];
-    let dislike_counter = padre.children[3];
-
-    let n_like = parseInt(like_counter.innerHTML);
-    let n_dislike = parseInt(dislike_counter.innerHTML);
-
-    data.append("user", padre.getAttribute("user"));
-    data.append("aid", padre.getAttribute("album"));
-    data.append("user_log", padre.getAttribute("user_log"));
-    if(param.src == "http://localhost/B-Side-master/images/dislike.png") {
-        param.src = "http://localhost/B-Side-master/images/dislike_checked.png";
+    arr.forEach(e => {
+        const user = e.parentElement.getAttribute("user");
+        const album = e.parentElement.getAttribute("album");
         
-        
-        if(like.src == "http://localhost/B-Side-master/images/like_checked.png") { 
-            like.src = "http://localhost/B-Side-master/images/like.png";
+        e.addEventListener("click", event =>{
+            let data = new FormData();
+            
+            
+            const src = e.src.split("/").slice(-1)[0];
+            data.append("user", user);
+            data.append("album", album);
+            if(e.classList == "like"){
+                data.append("type", "like");
 
-            fetch("./php_scripts/removelike.php", {
-                method: "POST",
-                body: data
-                }).then(res => res.text())
-                .then(txt => console.log(txt))
-                .catch(err => console.error(err));
-                n_like--;
-        }
-        
-        fetch("./php_scripts/addDislike.php", {
-            method: "POST",
-            body: data
-            }).then(res => res.text())
-            .then(txt => console.log(txt))
-            .catch(err => console.error(err));
-            n_dislike++;
-    }else{
-        param.src = "http://localhost/B-Side-master/images/dislike.png";
+                if(src == like){
+                    data.append("action", "insert");
+                }else if(src == like_checked){
+                    data.append("action", "delete");
+                }
 
-        fetch("./php_scripts/removeDislike.php", {
-            method: "POST",
-            body: data
-            }).then(res => res.text())
-            .then(txt => console.log(txt))
-            .catch(err => console.error(err));
-            n_dislike--;
-    }
+                if(e.parentElement.children[2].src.split("/").splice(-1)[0] == dislike_checked){
+                    let tempData = new FormData();
+                    tempData.append("user", user);
+                    tempData.append("album", album);
+                    tempData.append("type", "dislike");
+                    tempData.append("action", "delete");
 
-    like_counter.innerHTML = ""+n_like;
-    dislike_counter.innerHTML = ""+n_dislike;
-};
+                    sendRequest(e.parentElement.children[2], tempData, src, () => {sendRequest(e, data, src, () => {})})
+                }else{
+                    sendRequest(e, data, src, () => {});
+                }
+            }else if(e.classList == "dislike"){
+                data.append("type", "dislike");
+                if(src == dislike){
+                    data.append("action", "insert");
+                }else if(src == dislike_checked){
+                    data.append("action", "delete");
+                }
+
+                if(e.parentElement.children[0].src.split("/").splice(-1)[0] == like_checked){
+                    let tempData = new FormData();
+                    tempData.append("user", user);
+                    tempData.append("album", album);
+                    tempData.append("type", "like");
+                    tempData.append("action", "delete");
+
+                    sendRequest(e.parentElement.children[0], tempData, src, () => {sendRequest(e, data, src, () => {})})
+                }else{
+                    sendRequest(e, data, src, () => {});
+                }
+            }
+
+            
+        });
+    });
+})()
