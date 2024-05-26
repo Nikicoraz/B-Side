@@ -16,7 +16,7 @@
             }
             $insert = "INSERT INTO reviews VALUES (?,?,?,?)";
             if($stmt = $c->prepare($insert)){
-                $aid = $_SESSION["album_id"];
+                $aid = $_POST["album_id"];
                 $title = "";
                 $body = $_POST["review_body"];
                 $stmt->bind_param("isss",$usr_id,$aid,$title,$body);
