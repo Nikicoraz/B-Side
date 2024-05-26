@@ -14,14 +14,12 @@
             if($c->query("SELECT * FROM reviews WHERE user_id = '$usr_id' AND album_id = '$_POST[album_id]'")->num_rows > 0){
                 die(409);
             }
-            $insert = "INSERT INTO reviews VALUES (?,?,?,?,?,?)";
+            $insert = "INSERT INTO reviews VALUES (?,?,?,?)";
             if($stmt = $c->prepare($insert)){
                 $aid = $_SESSION["album_id"];
                 $title = "";
                 $body = $_POST["review_body"];
-                $likes = 0;
-                $dislikes = 0;
-                $stmt->bind_param("isssii",$usr_id,$aid,$title,$body,$likes,$dislikes);
+                $stmt->bind_param("isssii",$usr_id,$aid,$title,$body);
                 $stmt->execute(); 
                 $stmt->close();
             }
