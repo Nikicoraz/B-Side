@@ -12,5 +12,6 @@ CLIENT_SECRET=secret
 DB_USER=user
 DB_PASS=password
 DB_URL=url
+DB_NAME=database?name
 ```
 > Replace id, secret, user, password and url with your own values
