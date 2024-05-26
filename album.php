@@ -113,10 +113,10 @@
                         $utente_log = $_SESSION["username"];
                         $user_id = $conn->query("SELECT user_id FROM user WHERE username = '$utente_log'")->fetch_assoc()["user_id"];
                         $utente_rev = $row["user_id"];
-
+                        
                         echo"<div id = 'other_user_review' user = ".$row['username'].">";
                         echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
-                        echo"<p>".$row['username']."</p>";
+                        echo "<a href=\"user.php?username=" . $row['username'] . "\"><p>" . $row["username"] . "</p></a>";
                         echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
                     
                         echo"<div id ='like_dislike' album='$aid' user='$user_id' rev_user='$utente_rev'>";
@@ -140,7 +140,7 @@
                 }else{
                     echo"<div id = 'other_user_review' user = ".$row['username'].">";
                     echo"<img src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png' alt='' id='review_profile-image'>";
-                    echo"<p>".$row['username']."</p>";
+                    echo "<a href=\"user.php?username=" . $row['username'] . "\"><p>" . $row["username"] . "</p></a>";
                     echo"<textarea cols='84' disabled>".$row['corpus']."</textarea>";
                 
                 }
