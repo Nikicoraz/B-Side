@@ -84,7 +84,7 @@
             if($album['error']['status'] == 401){
                 $token = grab_new_token();
                 $album = search_album_by_name($token, $album_name);
-                var_dump($album);
+                // var_dump($album);
             }
         }
 
