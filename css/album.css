@@ -11,6 +11,25 @@
 .reviews textarea{
     color: black;
 }
+
+.track {
+    background-color:var(--darker);
+    margin-bottom: 5px;
+    border-radius: 10px;
+    padding: 5px;
+    transition: 0.5s;
+}
+
+.track:hover {
+    background-color: #646464;
+    transition: 0.5s;
+}
+
+.track a {
+    margin: auto;
+    text-decoration: none;
+}
+
 form {
     display: grid;
     grid-template-rows: 50% auto;
@@ -26,7 +45,7 @@ form input[type="submit"]{
 }
 form input[type="submit"]:hover{
     border-bottom: 1px solid black;
-    background-color: #646363;
+    background-color: #646464;
     color: black;
     
 }

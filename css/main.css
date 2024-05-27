@@ -19,16 +19,26 @@
     display: block;
 }
 
-.album{
-    width: 33%;
+.album {
+    transition: 0.5s
 }
 
-.album>img{
+.album:hover {
+    background-color: #646464;
+    transition: 0.5s;
+}
+
+.album>div{
+    width: 200px;
+}
+
+.album>div>img{
     width: 200px;
     display: block;
     margin: 0 auto;
 }
-.album>h3{
+.album>div>h3{
+    width:100%;
     text-align: center;
 }
 

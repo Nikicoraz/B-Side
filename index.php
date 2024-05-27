@@ -87,7 +87,8 @@
 
                 if (!empty($new_releases['albums']['items'])) {
                     foreach ($new_releases['albums']['items'] as $album) {
-                        echo '<div class="album">';
+                        echo '<a class="album" href="album.php?album_id='. $album['id'] . '">';
+                        echo '<div>';
                         echo '<img src="' . $album['images'][0]['url'] . '" alt="' . htmlspecialchars($album['name']) . '">';
                         echo '<h3>' . htmlspecialchars($album['name']) . '</h3>';
                         echo '</div>';
