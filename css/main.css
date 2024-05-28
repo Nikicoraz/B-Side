@@ -23,11 +23,6 @@
     transition: 0.5s
 }
 
-.album:hover {
-    background-color: #646464;
-    transition: 0.5s;
-}
-
 .album>div{
     width: 200px;
 }
