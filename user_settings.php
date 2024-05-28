@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>User's settings</title>
+    <link rel="stylesheet" type="text/css" href="css/comune.css">
 </head>
 <body>
     <form method="POST" action="./php_scripts/update_username.php">

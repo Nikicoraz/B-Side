@@ -46,7 +46,6 @@
             $stmt->execute();
             $reviewsResult = $stmt->get_result();
 
-        
             echo "<div class='main-div'>";
             echo "<h1>Bio</h1>";
             echo "<p>" . nl2br(htmlspecialchars($bio)) . "</p>";

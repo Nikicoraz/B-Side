@@ -118,3 +118,27 @@ nav a{
     animation: rotate 10s linear infinite;
     transform-origin: center center;
 }
+
+button, input[type="submit"] {
+    background-color: var(--darker);
+    border: 1px solid white;
+    outline: none;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    resize: none;
+    padding: 10px;
+}
+
+input[type="submit"]:hover {
+    border-bottom: 1px solid black;
+    background-color: white;
+    color: black;
+}
+
+input[type="text"] {
+    color: black;
+}
+
+input[name="username"]{
+    color: white;
+}
