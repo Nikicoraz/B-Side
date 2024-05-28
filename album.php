@@ -63,7 +63,7 @@
             <ul>
                 <?php
                     foreach($album["tracks"]["items"] as $t) {
-                        echo "<li><a target='_blank' href='" . $t["external_urls"]["spotify"] . "'>" . $t["name"] . "</a></li>";
+                        echo "<li class=\"track\"><a target='_blank' href='" . $t["external_urls"]["spotify"] . "'>" . $t["name"] . "</a></li>";
                     }
                 ?>
             </ul>
