@@ -138,3 +138,7 @@ input[type="submit"]:hover {
 input[type="text"] {
     color: black;
 }
+
+input[name="username"]{
+    color: white;
+}
